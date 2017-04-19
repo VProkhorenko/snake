@@ -23,58 +23,45 @@ namespace snake
             upLine.Drow();
             downLine.Drow();
             leftLine.Drow();
-            rightLine.Drow();
+            rightLine.Drow(); // печать всех элементов List (множество точек)
 
             // отрисовка точек
-           // Point p1 = new Point(1, 3, '*');
-           // p1.Draw();
 
             Point p = new Point(4, 5, '*');
-            // p.Draw();
             Snake snake = new Snake(p, 4, Direction.RIGHT);
             snake.Drow();
-            /*
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            */
 
-            while(true)
+            FoodCreator foodCreator = new FoodCreator(80, 25, '$');
+            Point food = foodCreator.CreateFood();
+            food.Draw(); // Печать одной точки
+
+
+            while (true)
             {
-                if(Console.KeyAvailable)
+                if(snake.Eat(food))
                 {
-                    ConsoleKeyInfo key = Console.ReadKey();
-                    /*
-                        if (key.Key == ConsoleKey.LeftArrow)
-                        snake.direction = Direction.LEFT;
-                   else if (key.Key == ConsoleKey.RightArrow)
-                        snake.direction = Direction.RIGHT;
-                   else if (key.Key == ConsoleKey.DownArrow)
-                        snake.direction = Direction.DOWN;
-                   else if (key.Key == ConsoleKey.UpArrow)
-                        snake.direction = Direction.UP;
-                   */     
-                    snake.HandleKey(key.Key);
+                    food = foodCreator.CreateFood();
+                    food.Draw();
+                }
+                else
+                {
+                    snake.Move();
                 }
                 Thread.Sleep(100);
-                snake.Move();
+           // }
+
+          //  while(true)
+           // {
+                if(Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo key = Console.ReadKey();         
+                    snake.HandleKey(key.Key);
+                }
+               // Thread.Sleep(100);
+                //snake.Move();
             }
 
-            Console.ReadLine();
+            //Console.ReadLine();
         }
 
         
